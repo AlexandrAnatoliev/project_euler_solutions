@@ -1,9 +1,13 @@
-// ProjectEuler1c - Числа, кратные 3 или 5
-// Если выписать все натуральные числа меньше 10, кратные 3 или 5, то получим 3, 5, 6 и 9.
-// Сумма этих чисел равна 23. Найдите сумму всех чисел меньше 1000, кратных 3 или 5.
+// ProjectEuler1c - Multiples of 3 or 5
+
+// If we list all the natural numbers below 10 that are multiples of 3 or5, we get 3, 5, 6 and 9. 
+// The sum of these multiples is 23.
+
+// Find the sum of all the multiples of 3 or 5 below 1000.
 
 #include <stdio.h>
 #include "header.h"
+#include "timer.h"
 
 int main(void)
 {
@@ -16,26 +20,9 @@ int main(void)
             answ += num;                    // add to answer
 
     TIMER_FINISH
+    TIMER_PRINT                             // display the running time of the program using MACRO
 
-    printf(ANSWER);     // display the result and running time of the program using MACRO
+    printf("answer = %d\n", answ);          // display the result
 
     return 0;
 }
-
-/* русские комментарии
-int main(void)
-{
-    int answ = 0;
-
-    TIMER_START
-
-    for (int num = 1; num < 1000; num++)    // перебираем числа
-        if(IS_MULTIPLES(num))               // если оно делится на 3 или 5
-            answ += num;                    // складываем
-
-    TIMER_FINISH
-
-    printf(ANSWER);     // выводим результат и время работы программы используя МАКРОС
-
-    return 0;
-}*/
