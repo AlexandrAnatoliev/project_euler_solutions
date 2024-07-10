@@ -1,5 +1,8 @@
 // header.h
 
+#ifndef HEADER      // multiple file inclusion protection
+#define HEADER
+
 #define IS_NOT_DIVIDED(NUM, DIV) (NUM % DIV)
 // operation:		determining whether a number is divisible by an integer divisor
 // precondition:	NUM			- number to be checked
@@ -13,3 +16,4 @@
 // postcondition:	true	- if the number is divisible by one of the divisors
 //					false	- if the number is not divisible
 
+#endif
