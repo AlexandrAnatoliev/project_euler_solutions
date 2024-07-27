@@ -15,16 +15,17 @@
 int main(void)
 {
 	int fib_num = 1;                           
-   	int answ = 0;
-	int arr[] = {1, 1};
+   	int answ = 2;					// put 2 in answer
+	int arr[] = {1, 2};				// put the first two Fibonacci numbers into the array 
 
    	TIMER_START
   
 	while(fib_num < 4000000)
 	{	
-		fib_num = get_next_fib(arr);
-		if(fib_num % 2 == 0)
-			answ += fib_num;
+		fib_num = get_next_fib(arr);// get next Fibonacci numbers
+		
+		if(fib_num % 2 == 0)		// if the number is even
+			answ += fib_num;		// add to answer
 	}
 	
 	TIMER_STOP

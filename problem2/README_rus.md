@@ -1,10 +1,13 @@
-#Project Euler problem2: Even Fibonacci Numbers
+# Project Euler problem2: Even Fibonacci Numbers
 
-Для удобства разделим программу не несколько файлов:
-* header.h	- объявления функций, используемых в программе
-* funcs.c	- реализация функций
+Для удобства программа разделена на несколько файлов:
+* header.h
+* funcs.c
+* timer.h
+* main_recurs.c
 
 ## Файл header.h
+Содержит объявления  функций, используемых в программе.
 
 С помощью конструкции:
 ```
@@ -12,47 +15,68 @@
 #define HEADER
 #endif
 ```
-int get_fib_recurs(int ser_num);
-// operation:		 getting the Fibonacci number by its serial number recursively
-// precondition:	 function takes the serial number
-// postcondition:	 and return the Fibonacci number
+...файл защищен от повторного включения.
 
-int get_next_fib(int array[]);
-// operation:		 getting the next Fibonacci number by using array
-// precondition:	 function takes the array is containing the first two Fibonacci numbers
-// postcondition:	 return the next Fibonacci number and stores the last two numbers in an array
-// 			
+Поскольку задачу решаем двумя способами, потому понадобится две функции:
+* Функция `int get_fib_recurs(int ser_num)` принимает порядковый номер искомого числа Фибоначчи и ищет его рекурсивно.
+* 'int get_next_fib(int array[])' принимает массив с двумя последними числами ряда, вычисляет следующее число и обновляет содержимое массива.
 
 ## Файл funcs.c
-Защищаем файл от повторного включения
-Подключаем с помощью "header.h" объявления функций.
-С помошью заголовочного файла <assert.h> подключаем библиотеку утверждений. Она необходима для обработки ошибок  при отладке программы.
+Содержит релизацию используемых в программе функций.
+
+Файл защищен от повторного включения.
+С помощью "header.h" подключаются объявления функций.
+С помошью заголовочного файла <assert.h> подключена библиотека утверждений. Она необходима для обработки ошибок  при отладке программы.
+
+В случае если утверждение принимаемое макросом `assert()` ложно:
+* макрос выводит в стандартный поток ошибок сообщение об ошибке
+* вызывается функция `abort()`, которая прекращает выполнение программы
+ 
+Когда `assert()` прекращает выполнение программы, то отображается:
+* не прошедший проверку тест (условие);
+* имя файла, содержащего этот тест;
+* номер строки, где находится тест.
+
+## timer.h
+Файл служит для измерения работы программы.
+
+Файл защищен от повторного включения.
+Заголовочный файл `<time.h>` позволяет работать со временем.
+
+Файл `"timer.h"` cодержит три макроса:
+* `TIMER_START`	- создает переменную для измерения времени выполнения кода и запускает таймер; 
+* `TIMER_STOP`	- останавливает таймер и вычисляет время выполнеия программы в секундах;
+* `TIMER_PRINT`	- выводит время работы на экран
 
 
-int get_fib_recurs(int ser_num)
-// operation:		 getting the Fibonacci number by its serial number recursively
-// precondition:	 function takes the serial number
-// postcondition:	 and return the Fibonacci number
-{
-	if(ser_num <= 1)
-		return 1;
-	else
-		return get_fib_recurs(ser_num - 1) + get_fib_recurs(ser_num - 2);
-}
+## main_recurs.c
+Рекурсивный способ решения задачи.
 
-int get_next_fib(int array[])
-// operation:		 getting the next Fibonacci number by using array
-// precondition:	 function takes the array is containing the first two Fibonacci numbers
-// postcondition:	 return the next Fibonacci number and stores the last two numbers in an array
-{
-	assert((array[0] > 0) && (array[1] > 0) && (array[0] <= array[1]));	// input valudation
-										
-	int next_fib = array[0] + array[1];	// next Fibonacci number is sum previous two numbers
-						
-	array[0] = array[1];				// updating the values of the last numbers
-	array[1] = next_fib;
-	
-	return next_fib;
-}
+Подключаются все заголовочные файлы, используемые в программе.
 
+Включается таймер.
 
+В функции `main_recurs.c`:
+* перебираются порядковые номера чисел;
+* с помощью рекурсивной функции `get_fib_recurs()` вычисляется значение числа Фибоначчи;
+* четные значения складываются;
+* цикл прерывается, когда очередное значение числа Фибоначи превысит 4000000.
+
+Останавливается таймер и выводятся результаты вычислений и время.
+
+## main_array.c
+Используется массив для хранения значений последних двух чисел 
+
+Точно так же подключаются все заголовочные файлые.
+
+Инициализируется массив значениями первых двух чисел ряда Фибоначчи.
+В ответ сразу заносится 2, потому что перебор продолжится со следующих чисел.
+Включается таймер.
+
+В функции `main_array.c`:
+* в функцию `get_next_fib()` передается указатель на массив;
+* вычисляется значение следующего числа Фибоначчи и обновляется содержание массива;
+* четные значения складываются;
+* цикл прерывается, когда очередное значение числа Фибоначи превысит 4000000.
+
+Таймер останавливается и выводятся результаты.
