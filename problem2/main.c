@@ -7,31 +7,41 @@
 // find the sum of the even-valued terms.
 
 #include <stdio.h>
-#include <time.h>                                                   // for clock_t, clock(), CLOCKS_PER_SEC
+#include "timer.h"
+
+int get_fib_recurs(int cnt);
 
 int main(void)
 {
-    int fib1 = 1;                           
-    int fib2 = 2;
-    int fib_next = 0;
-    int evens_summ = 0;
+    	int fib = 1;
+	int cnt = 1;                           
+    	int answ = 0;
 
-    double time_spent = 0.0;                                        // для хранения времени выполнения кода
-    clock_t begin = clock();                                        // СТАРТ таймера
+    	TIMER_START
+  
+	while(fib < 4000000)
+	{
+		
+		fib = get_fib_recurs(cnt);
+		if(fib % 2 == 0)
+			answ += fib;
+		//printf("%d - %d \n", cnt, fib);
+		cnt++;
+	}
+	
+	TIMER_STOP
+    	TIMER_PRINT
 
-    while (fib_next < 4000000)
-    {
-        fib_next = fib1 + fib2;                                     // следующее число Фибоначчи - сумма двух предыдущих
-        fib1 = fib2;
-        if ( !(fib2 % 2) )                                          // fib2%2 == 0
-            evens_summ += fib2;
-        fib2 = fib_next;    
-    }
-    
-    clock_t end = clock();                                          // СТОП таймера
-    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;           // время работы в секундах
+    	printf("answer  = %d\n", answ);   // выводим результат
 
-    printf("answer = %d runtime = %f\n", evens_summ, time_spent);   // выводим результат и время работы программы
-
-    return 0;
+    	return 0;
 }
+
+int get_fib_recurs(int cnt)
+{
+	if(cnt <= 1)
+		return 1;
+	else
+		return get_fib_recurs(cnt - 1) + get_fib_recurs(cnt - 2);
+}
+
