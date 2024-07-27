@@ -8,40 +8,32 @@
 
 #include <stdio.h>
 #include "timer.h"
-
-int get_fib_recurs(int cnt);
+#include "header.h"
+#include "funcs.c"
 
 int main(void)
 {
-    	int fib = 1;
-	int cnt = 1;                           
+    	int ser_num = 1;
+	int fib_num = 1;                           
     	int answ = 0;
 
     	TIMER_START
   
-	while(fib < 4000000)
+	while(fib_num < 4000000)
 	{
-		
-		fib = get_fib_recurs(cnt);
-		if(fib % 2 == 0)
-			answ += fib;
-		//printf("%d - %d \n", cnt, fib);
-		cnt++;
+		fib_num = get_fib_recurs(ser_num);
+		if(fib_num % 2 == 0)
+			answ += fib_num;
+		ser_num++;
 	}
 	
 	TIMER_STOP
-    	TIMER_PRINT
 
-    	printf("answer  = %d\n", answ);   // выводим результат
+	printf("Solution by recusion\n");
+    	TIMER_PRINT
+    	printf("answer  = %d\n", answ);
 
     	return 0;
 }
 
-int get_fib_recurs(int cnt)
-{
-	if(cnt <= 1)
-		return 1;
-	else
-		return get_fib_recurs(cnt - 1) + get_fib_recurs(cnt - 2);
-}
 

@@ -14,28 +14,26 @@
 
 int main(void)
 {
-    	int ser_num = 1;
 	int fib_num = 1;                           
-    	int answ = 0;
+   	int answ = 0;
 	int arr[] = {1, 1};
 
-    	TIMER_START
+   	TIMER_START
   
 	while(fib_num < 4000000)
-	{
-		fib_num = arr[0] + arr[1];
-		arr[0] = arr[1];
-		arr[1] = fib_num;
+	{	
+		fib_num = get_next_fib(arr);
 		if(fib_num % 2 == 0)
 			answ += fib_num;
-		ser_num++;
 	}
 	
 	TIMER_STOP
 
 	printf("Solution by array\n");
-    	TIMER_PRINT
-    	printf("answer  = %d\n", answ);
+   	TIMER_PRINT
+   	printf("answer  = %d\n", answ);
 
-    	return 0;
+   	return 0;
 }
+
+
