@@ -4,16 +4,14 @@
 // What is the largest prime factor of the number 6008514745143?
 //
 #include <stdio.h>
-#include <time.h>                                               // for clock_t, clock(), CLOCKS_PER_SEC
+#include "timer.h"	// to measure the program running time
 
 int main(void)
 {
     long long answer = 600851475143;
-
-    double time_spent = 0.0;                                    // для хранения времени выполнения кода
-    clock_t begin = clock();                                    // СТАРТ таймера
-
     int div = 2;                                                // начало диапазона
+
+	TIMER_START
 
     while(div * div < answer)                                        // пока число делится
     {
@@ -25,10 +23,11 @@ int main(void)
             }
     } 
     
-    clock_t end = clock();                                      // СТОП таймера
-    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;       // время работы в секундах
+	TIMER_STOP
+	TIMER_PRINT
 
-    printf("answer = %lld runtime = %f\n", answer, time_spent); // выводим результат и время работы программы
-    return 0;
+    printf("answer = %lld\n", answer); // выводим результат
+	
+	return 0;
 }
 
